@@ -61,6 +61,9 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            label5 = new Label();
+            panelPreview = new Panel();
+            btnPreview = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericnbVerticalButton).BeginInit();
@@ -72,9 +75,9 @@
             // btnImport
             // 
             btnImport.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnImport.Location = new Point(623, 523);
+            btnImport.Location = new Point(37, 250);
             btnImport.Name = "btnImport";
-            btnImport.Size = new Size(121, 92);
+            btnImport.Size = new Size(293, 51);
             btnImport.TabIndex = 0;
             btnImport.Text = "Importer";
             btnImport.UseVisualStyleBackColor = true;
@@ -82,10 +85,10 @@
             // 
             // pictureBox
             // 
-            pictureBox.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox.Location = new Point(162, 52);
+            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox.Location = new Point(37, 58);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(411, 287);
+            pictureBox.Size = new Size(293, 186);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 1;
             pictureBox.TabStop = false;
@@ -100,7 +103,7 @@
             // 
             // txtboxhauteur
             // 
-            txtboxhauteur.Location = new Point(537, 378);
+            txtboxhauteur.Location = new Point(1046, 412);
             txtboxhauteur.Name = "txtboxhauteur";
             txtboxhauteur.Size = new Size(69, 27);
             txtboxhauteur.TabIndex = 3;
@@ -108,7 +111,7 @@
             // 
             // txtboxLargeur
             // 
-            txtboxLargeur.Location = new Point(537, 448);
+            txtboxLargeur.Location = new Point(1046, 459);
             txtboxLargeur.Name = "txtboxLargeur";
             txtboxLargeur.Size = new Size(69, 27);
             txtboxLargeur.TabIndex = 4;
@@ -119,7 +122,7 @@
             txtlargeur.AutoSize = true;
             txtlargeur.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txtlargeur.ForeColor = Color.FromArgb(148, 155, 154);
-            txtlargeur.Location = new Point(469, 452);
+            txtlargeur.Location = new Point(978, 463);
             txtlargeur.Name = "txtlargeur";
             txtlargeur.Size = new Size(64, 21);
             txtlargeur.TabIndex = 5;
@@ -130,7 +133,7 @@
             txthauteur.AutoSize = true;
             txthauteur.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txthauteur.ForeColor = Color.FromArgb(148, 155, 154);
-            txthauteur.Location = new Point(463, 382);
+            txthauteur.Location = new Point(972, 416);
             txthauteur.Name = "txthauteur";
             txthauteur.Size = new Size(68, 21);
             txthauteur.TabIndex = 6;
@@ -139,7 +142,7 @@
             // btnredimension
             // 
             btnredimension.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnredimension.Location = new Point(241, 639);
+            btnredimension.Location = new Point(401, 416);
             btnredimension.Name = "btnredimension";
             btnredimension.Size = new Size(139, 89);
             btnredimension.TabIndex = 7;
@@ -152,7 +155,7 @@
             checkBoxSize.AutoSize = true;
             checkBoxSize.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             checkBoxSize.ForeColor = Color.FromArgb(148, 155, 154);
-            checkBoxSize.Location = new Point(633, 382);
+            checkBoxSize.Location = new Point(1133, 414);
             checkBoxSize.Name = "checkBoxSize";
             checkBoxSize.Size = new Size(64, 25);
             checkBoxSize.TabIndex = 8;
@@ -162,7 +165,7 @@
             // btnEnregistrer
             // 
             btnEnregistrer.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEnregistrer.Location = new Point(407, 639);
+            btnEnregistrer.Location = new Point(551, 416);
             btnEnregistrer.Name = "btnEnregistrer";
             btnEnregistrer.Size = new Size(133, 89);
             btnEnregistrer.TabIndex = 9;
@@ -173,7 +176,7 @@
             // btnFractionner
             // 
             btnFractionner.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnFractionner.Location = new Point(37, 656);
+            btnFractionner.Location = new Point(129, 435);
             btnFractionner.Name = "btnFractionner";
             btnFractionner.Size = new Size(112, 51);
             btnFractionner.TabIndex = 10;
@@ -184,9 +187,9 @@
             // btnenregsitrerdivise
             // 
             btnenregsitrerdivise.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btnenregsitrerdivise.Location = new Point(623, 635);
+            btnenregsitrerdivise.Location = new Point(401, 250);
             btnenregsitrerdivise.Name = "btnenregsitrerdivise";
-            btnenregsitrerdivise.Size = new Size(121, 93);
+            btnenregsitrerdivise.Size = new Size(160, 51);
             btnenregsitrerdivise.TabIndex = 13;
             btnenregsitrerdivise.Text = "Exporter";
             btnenregsitrerdivise.UseVisualStyleBackColor = true;
@@ -197,7 +200,7 @@
             checkbox360.AutoSize = true;
             checkbox360.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             checkbox360.ForeColor = Color.FromArgb(148, 155, 154);
-            checkbox360.Location = new Point(633, 448);
+            checkbox360.Location = new Point(1133, 461);
             checkbox360.Name = "checkbox360";
             checkbox360.Size = new Size(94, 25);
             checkbox360.TabIndex = 14;
@@ -224,7 +227,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
-            menuStrip1.Size = new Size(758, 30);
+            menuStrip1.Size = new Size(1285, 30);
             menuStrip1.TabIndex = 17;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -268,7 +271,7 @@
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox1.ForeColor = Color.FromArgb(148, 155, 154);
-            checkBox1.Location = new Point(37, 505);
+            checkBox1.Location = new Point(1046, 197);
             checkBox1.Margin = new Padding(3, 4, 3, 4);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(106, 25);
@@ -281,7 +284,7 @@
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox2.ForeColor = Color.FromArgb(148, 155, 154);
-            checkBox2.Location = new Point(37, 556);
+            checkBox2.Location = new Point(1046, 248);
             checkBox2.Margin = new Padding(3, 4, 3, 4);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(115, 25);
@@ -294,7 +297,7 @@
             checkBox3.AutoSize = true;
             checkBox3.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox3.ForeColor = Color.FromArgb(148, 155, 154);
-            checkBox3.Location = new Point(37, 607);
+            checkBox3.Location = new Point(1046, 299);
             checkBox3.Margin = new Padding(3, 4, 3, 4);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(115, 25);
@@ -304,23 +307,28 @@
             // 
             // numericnbVerticalButton
             // 
-            numericnbVerticalButton.Location = new Point(119, 384);
+            numericnbVerticalButton.Location = new Point(104, 322);
+            numericnbVerticalButton.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericnbVerticalButton.Name = "numericnbVerticalButton";
             numericnbVerticalButton.Size = new Size(67, 27);
             numericnbVerticalButton.TabIndex = 21;
+            numericnbVerticalButton.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericnbVerticalButton.ValueChanged += numericnbVerticalButton_ValueChanged;
             // 
             // numericnbHorizontalButton
             // 
-            numericnbHorizontalButton.Location = new Point(119, 420);
+            numericnbHorizontalButton.Location = new Point(104, 358);
+            numericnbHorizontalButton.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericnbHorizontalButton.Name = "numericnbHorizontalButton";
             numericnbHorizontalButton.Size = new Size(67, 27);
             numericnbHorizontalButton.TabIndex = 22;
+            numericnbHorizontalButton.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericnbHorizontalButton.ValueChanged += numericnbHorizontalButton_ValueChanged;
             // 
             // numericSizeBtn
             // 
-            numericSizeBtn.Location = new Point(336, 420);
+            numericSizeBtn.Location = new Point(263, 359);
+            numericSizeBtn.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
             numericSizeBtn.Name = "numericSizeBtn";
             numericSizeBtn.Size = new Size(67, 27);
             numericSizeBtn.TabIndex = 24;
@@ -328,7 +336,7 @@
             // 
             // numericEcart
             // 
-            numericEcart.Location = new Point(336, 384);
+            numericEcart.Location = new Point(263, 323);
             numericEcart.Name = "numericEcart";
             numericEcart.Size = new Size(67, 27);
             numericEcart.TabIndex = 23;
@@ -339,7 +347,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(148, 155, 154);
-            label1.Location = new Point(281, 390);
+            label1.Location = new Point(208, 329);
             label1.Name = "label1";
             label1.Size = new Size(49, 21);
             label1.TabIndex = 25;
@@ -350,7 +358,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.FromArgb(148, 155, 154);
-            label2.Location = new Point(269, 426);
+            label2.Location = new Point(196, 365);
             label2.Name = "label2";
             label2.Size = new Size(61, 21);
             label2.TabIndex = 26;
@@ -361,7 +369,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.ForeColor = Color.FromArgb(148, 155, 154);
-            label3.Location = new Point(37, 426);
+            label3.Location = new Point(37, 359);
             label3.Name = "label3";
             label3.Size = new Size(63, 21);
             label3.TabIndex = 27;
@@ -372,18 +380,50 @@
             label4.AutoSize = true;
             label4.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(148, 155, 154);
-            label4.Location = new Point(37, 390);
+            label4.Location = new Point(39, 323);
             label4.Name = "label4";
             label4.Size = new Size(61, 21);
             label4.TabIndex = 28;
             label4.Text = "nbBtnV";
+            // 
+            // label5
+            // 
+            label5.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.FromArgb(148, 155, 154);
+            label5.Location = new Point(401, 34);
+            label5.Name = "label5";
+            label5.Size = new Size(283, 21);
+            label5.TabIndex = 29;
+            label5.Text = "Preview";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panelPreview
+            // 
+            panelPreview.Location = new Point(401, 58);
+            panelPreview.Name = "panelPreview";
+            panelPreview.Size = new Size(283, 186);
+            panelPreview.TabIndex = 30;
+            // 
+            // btnPreview
+            // 
+            btnPreview.Font = new Font("Comic Sans MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnPreview.Location = new Point(567, 250);
+            btnPreview.Name = "btnPreview";
+            btnPreview.Size = new Size(117, 51);
+            btnPreview.TabIndex = 31;
+            btnPreview.Text = "preview";
+            btnPreview.UseVisualStyleBackColor = true;
+            btnPreview.Click += btnPreview_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(46, 48, 53);
-            ClientSize = new Size(758, 755);
+            ClientSize = new Size(1285, 537);
+            Controls.Add(btnPreview);
+            Controls.Add(panelPreview);
+            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -458,5 +498,8 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private Label label5;
+        private Panel panelPreview;
+        private Button btnPreview;
     }
 }

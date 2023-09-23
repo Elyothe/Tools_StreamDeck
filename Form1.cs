@@ -10,14 +10,17 @@ namespace App_StreamDeck
     {
         picture unepic;
         List<picture> imgdivise = new List<picture>();
+        Form formPreview;
+        DataGridView dataGridView;
 
-        int sizeButtonDeck;
-        int nbVerticalButton;
-        int nbHorizontalButton;
-        int ecartButton;
+        int sizeButtonDeck = 72;
+        int nbVerticalButton = 3;
+        int nbHorizontalButton = 5;
+        int ecartButton = 20;
 
         int nouvelleLargeur;
         int nouvelleHauteur;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +28,24 @@ namespace App_StreamDeck
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            formPreview = new Form();
 
+            formPreview.FormClosing += (sender, e) =>
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    // Annulez la fermeture et cachez le formulaire au lieu de le fermer
+                    e.Cancel = true;
+                    formPreview.Hide();
+                }
+            };
+            //panelTable = new TableLayoutPanel();
+            dataGridView = new DataGridView();
+            formPreview.Controls.Add(dataGridView);
+            numericEcart.Value = ecartButton;
+            numericnbHorizontalButton.Value = nbHorizontalButton;
+            numericnbVerticalButton.Value = nbVerticalButton;
+            numericSizeBtn.Value = sizeButtonDeck;
         }
         private void txtboxhauteur_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -56,7 +76,6 @@ namespace App_StreamDeck
 
                 Image image = Image.FromFile(cheminImage);
 
-
                 txtboxhauteur.Text = image.Height.ToString();
                 txtboxLargeur.Text = image.Width.ToString();
                 pictureBox.Image = image;
@@ -64,13 +83,15 @@ namespace App_StreamDeck
 
 
 
-                MessageBox.Show("L'image est trop grande");
+
+                btnredimension_Click(this, new EventArgs());
 
             }
         }
 
         private void btnredimension_Click(object sender, EventArgs e)
         {
+            if (unepic != null && unepic.image != null)
             {
 
                 nouvelleLargeur = nbHorizontalButton * sizeButtonDeck + (nbHorizontalButton - 1) * ecartButton;
@@ -131,24 +152,28 @@ namespace App_StreamDeck
 
         private void btndivise_Click_1(object sender, EventArgs e)
         {
-
             imgdivise.Clear();
             if (unepic != null && unepic.image != null)
             {
                 Bitmap imageOriginale = new Bitmap(unepic.image);
 
-                for (int y = 0; y + sizeButtonDeck < imageOriginale.Height; y += sizeButtonDeck)
+                for (int y = 0; y + sizeButtonDeck <= nouvelleHauteur; y += sizeButtonDeck + ecartButton)
                 {
-                    for (int x = 0; x + sizeButtonDeck < imageOriginale.Width; x += sizeButtonDeck)
+                    for (int x = 0; x + sizeButtonDeck <= nouvelleLargeur; x += sizeButtonDeck + ecartButton)
                     {
-                        Rectangle rect = new Rectangle(x + ecartButton, y + ecartButton, sizeButtonDeck, sizeButtonDeck);
+                        Rectangle rect = new Rectangle(x, y, sizeButtonDeck, sizeButtonDeck);
                         Bitmap segment = new Bitmap(imageOriginale.Clone(rect, imageOriginale.PixelFormat));
                         picture segmentPicture = new picture(segment, sizeButtonDeck, sizeButtonDeck);
                         imgdivise.Add(segmentPicture);
+
+                        //MessageBox.Show($"image d'origine : w={nouvelleLargeur} - h={nouvelleHauteur}" +
+                        //                $"\n Point a : x={x} - y={y}" +
+                        //                $"\n Point b : x={x+sizeButtonDeck} - y={y+ sizeButtonDeck}");
+
                     }
                 }
 
-                MessageBox.Show("L'image a été divisée en " + imgdivise.Count + " segments de 72x72 pixels.");
+                MessageBox.Show($"L'image a été divisée en {imgdivise.Count} segments de {sizeButtonDeck}x{sizeButtonDeck} pixels.");
             }
         }
 
@@ -241,21 +266,126 @@ namespace App_StreamDeck
         private void numericnbVerticalButton_ValueChanged(object sender, EventArgs e)
         {
             nbVerticalButton = (int)numericnbVerticalButton.Value;
+            btnredimension_Click(sender, e);
         }
 
         private void numericnbHorizontalButton_ValueChanged(object sender, EventArgs e)
         {
             nbHorizontalButton = (int)numericnbHorizontalButton.Value;
+            btnredimension_Click(sender, e);
         }
 
         private void numericEcart_ValueChanged(object sender, EventArgs e)
         {
             ecartButton = (int)numericEcart.Value;
+            btnredimension_Click(sender, e);
         }
 
         private void numericSizeBtn_ValueChanged(object sender, EventArgs e)
         {
             sizeButtonDeck = (int)numericSizeBtn.Value;
+            btnredimension_Click(sender, e);
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            ShowPreview();
+        }
+
+        public void ShowPreview()
+        {
+            if (imgdivise.Count > 0)
+            {
+                // Définir un style de cellule commun
+                var cellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.Black,
+                    SelectionBackColor = Color.Black
+                };
+
+                // Configurer le DataGridView avec le style commun
+                dataGridView.Dock = DockStyle.None;
+                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                dataGridView.AllowUserToAddRows = false;
+                dataGridView.RowHeadersVisible = false;
+                dataGridView.ColumnHeadersVisible = false;
+                dataGridView.ScrollBars = ScrollBars.None;
+                dataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                dataGridView.MultiSelect = false;
+                dataGridView.ReadOnly = true;
+                dataGridView.AllowUserToOrderColumns = false;
+                dataGridView.AllowUserToResizeRows = false;
+                dataGridView.AllowUserToResizeColumns = false;
+                dataGridView.GridColor = Color.Black;
+                dataGridView.DefaultCellStyle = cellStyle;
+
+                dataGridView.Width = nouvelleLargeur;
+                dataGridView.Height = nouvelleHauteur;
+
+                dataGridView.Location = new Point(ecartButton, ecartButton);
+
+                dataGridView.Rows.Clear();
+                dataGridView.Columns.Clear();
+
+                for (int i = 0; i < nbHorizontalButton * 2 - 1; i++)
+                {
+                    var column = new DataGridViewTextBoxColumn
+                    {
+                        Width = (i % 2 == 0) ? sizeButtonDeck : ecartButton
+                    };
+                    dataGridView.Columns.Add(column);
+                }
+
+                for (int i = 0; i < nbVerticalButton * 2 - 1; i++)
+                {
+                    dataGridView.Rows.Add();
+                    dataGridView.Rows[i].Height = (i % 2 == 0) ? sizeButtonDeck : ecartButton;
+
+                    if (i % 2 != 0)
+                    {
+                        for (int j = 0; j < dataGridView.ColumnCount; j++)
+                        {
+                            dataGridView[j, i].Value = null;
+                        }
+                    }
+                }
+
+                int rowIndex = 0;
+                int columnIndex = 0;
+
+                foreach (var imageFragment in imgdivise)
+                {
+                    var imageCell = new DataGridViewImageCell
+                    {
+                        Value = imageFragment.image
+                    };
+                    dataGridView[columnIndex, rowIndex] = imageCell;
+
+                    columnIndex += 2;
+
+                    if (columnIndex >= dataGridView.ColumnCount)
+                    {
+                        columnIndex = 0;
+                        rowIndex += 2;
+                    }
+                }
+
+                formPreview.Text = "Preview";
+
+                formPreview.ShowIcon = false;
+                formPreview.StartPosition = FormStartPosition.CenterScreen;
+                // bloquer la redimesion 
+                formPreview.FormBorderStyle = FormBorderStyle.FixedSingle;
+                formPreview.MaximizeBox = false;
+                formPreview.MinimizeBox = false;
+                formPreview.BackColor = Color.Black;
+                formPreview.Width = nouvelleLargeur + (formPreview.Width - formPreview.ClientSize.Width) + ecartButton + 20;
+                // hauteur de la barre de titre + hauteur de la barre de défilement vertical
+                formPreview.Height = nouvelleHauteur + (formPreview.Height - formPreview.ClientSize.Height) + ecartButton + 20;
+
+                formPreview.Show();
+                formPreview.BringToFront();
+            }
         }
     }
 }

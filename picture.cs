@@ -37,9 +37,16 @@ namespace App_StreamDeck
         // Ajouter une méthode pour redimensionner l'image
         public void Resize(int nouvelleLargeur, int nouvelleHauteur)
         {
-            image = new Bitmap(image, nouvelleLargeur, nouvelleHauteur);
-            Largeur = nouvelleLargeur;
-            Hauteur = nouvelleHauteur;
+            try
+            {
+                image = new Bitmap(image, nouvelleLargeur, nouvelleHauteur);
+                Largeur = nouvelleLargeur;
+                Hauteur = nouvelleHauteur;
+            }catch(Exception e)
+            {
+                Console.WriteLine("Erreur lors du redimensionnement de l'image : " + e.Message);
+            }
+            
         }
     }
 
