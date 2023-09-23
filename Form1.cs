@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 using System.Diagnostics;
 using System.Linq;
+using System.Drawing.Imaging;
 
 namespace App_StreamDeck
 {
@@ -12,6 +13,7 @@ namespace App_StreamDeck
         List<picture> imgdivise = new List<picture>();
         Form formPreview;
         DataGridView dataGridView;
+        ImageFormat formatImg;
 
         int sizeButtonDeck = 72;
         int nbVerticalButton = 3;
@@ -72,10 +74,10 @@ namespace App_StreamDeck
             {
 
                 string cheminImage = openFileDialog.FileName;
-
+                
 
                 Image image = Image.FromFile(cheminImage);
-
+                formatImg = image.RawFormat;
                 txtboxhauteur.Text = image.Height.ToString();
                 txtboxLargeur.Text = image.Width.ToString();
                 pictureBox.Image = image;
@@ -200,9 +202,8 @@ namespace App_StreamDeck
                 // Parcourez la boucle for en utilisant la variable i pour nommer les fichiers
                 for (int i = 0; i < imgdivise.Count; i++)
                 {
-
                     // Construisez le chemin complet du fichier de destination dans le dossier sélectionné
-                    string destinationFilePath = Path.Combine(selectedFolderPath, i + 1 + ".png");
+                    string destinationFilePath = Path.Combine(selectedFolderPath, $"{i + 1}.{formatImg}");
 
                     Bitmap imageRedimensionnee = new Bitmap(imgdivise[i].image, sizeButtonDeck, sizeButtonDeck);
                     imageRedimensionnee.Save(destinationFilePath);
