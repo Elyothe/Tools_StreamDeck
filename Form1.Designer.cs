@@ -340,6 +340,7 @@
             numericEcart.Name = "numericEcart";
             numericEcart.Size = new Size(67, 27);
             numericEcart.TabIndex = 23;
+            numericEcart.Value = new decimal(new int[] { 6, 0, 0, 0 });
             numericEcart.ValueChanged += numericEcart_ValueChanged;
             // 
             // label1

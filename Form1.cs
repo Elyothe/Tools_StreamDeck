@@ -14,6 +14,7 @@ namespace App_StreamDeck
         Form formPreview;
         DataGridView dataGridView;
         ImageFormat formatImg;
+        PictureBox pictureBoxPreview;
 
         int sizeButtonDeck = 72;
         int nbVerticalButton = 3;
@@ -42,8 +43,8 @@ namespace App_StreamDeck
                 }
             };
             //panelTable = new TableLayoutPanel();
-            dataGridView = new DataGridView();
-            formPreview.Controls.Add(dataGridView);
+            //dataGridView = new DataGridView();
+            //formPreview.Controls.Add(dataGridView);
             numericEcart.Value = ecartButton;
             numericnbHorizontalButton.Value = nbHorizontalButton;
             numericnbVerticalButton.Value = nbVerticalButton;
@@ -74,7 +75,7 @@ namespace App_StreamDeck
             {
 
                 string cheminImage = openFileDialog.FileName;
-                
+
 
                 Image image = Image.FromFile(cheminImage);
                 formatImg = image.RawFormat;
@@ -293,82 +294,42 @@ namespace App_StreamDeck
             ShowPreview();
         }
 
+        List<PictureBox> listPictureBox = new List<PictureBox>();
         public void ShowPreview()
         {
             if (imgdivise.Count > 0)
             {
-                // Définir un style de cellule commun
-                var cellStyle = new DataGridViewCellStyle
+                int y = 0;
+                int x = 0;
+
+                //Suppression de tout les pictureBox de la form
+                foreach (Control item in listPictureBox)
                 {
-                    BackColor = Color.Black,
-                    SelectionBackColor = Color.Black
-                };
-
-                // Configurer le DataGridView avec le style commun
-                dataGridView.Dock = DockStyle.None;
-                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                dataGridView.AllowUserToAddRows = false;
-                dataGridView.RowHeadersVisible = false;
-                dataGridView.ColumnHeadersVisible = false;
-                dataGridView.ScrollBars = ScrollBars.None;
-                dataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect;
-                dataGridView.MultiSelect = false;
-                dataGridView.ReadOnly = true;
-                dataGridView.AllowUserToOrderColumns = false;
-                dataGridView.AllowUserToResizeRows = false;
-                dataGridView.AllowUserToResizeColumns = false;
-                dataGridView.GridColor = Color.Black;
-                dataGridView.DefaultCellStyle = cellStyle;
-
-                dataGridView.Width = nouvelleLargeur;
-                dataGridView.Height = nouvelleHauteur;
-
-                dataGridView.Location = new Point(ecartButton, ecartButton);
-
-                dataGridView.Rows.Clear();
-                dataGridView.Columns.Clear();
-
-                for (int i = 0; i < nbHorizontalButton * 2 - 1; i++)
-                {
-                    var column = new DataGridViewTextBoxColumn
-                    {
-                        Width = (i % 2 == 0) ? sizeButtonDeck : ecartButton
-                    };
-                    dataGridView.Columns.Add(column);
+                    formPreview.Controls.Remove(item);
                 }
-
-                for (int i = 0; i < nbVerticalButton * 2 - 1; i++)
-                {
-                    dataGridView.Rows.Add();
-                    dataGridView.Rows[i].Height = (i % 2 == 0) ? sizeButtonDeck : ecartButton;
-
-                    if (i % 2 != 0)
-                    {
-                        for (int j = 0; j < dataGridView.ColumnCount; j++)
-                        {
-                            dataGridView[j, i].Value = null;
-                        }
-                    }
-                }
-
-                int rowIndex = 0;
-                int columnIndex = 0;
 
                 foreach (var imageFragment in imgdivise)
                 {
-                    var imageCell = new DataGridViewImageCell
-                    {
-                        Value = imageFragment.image
-                    };
-                    dataGridView[columnIndex, rowIndex] = imageCell;
+                    
+                    pictureBoxPreview = new PictureBox();
 
-                    columnIndex += 2;
+                    //positionner la picture box 
+                    pictureBoxPreview.Location = new Point(x + ecartButton, y + ecartButton);
+                    pictureBoxPreview.Size = new Size(sizeButtonDeck, sizeButtonDeck);
+                    pictureBoxPreview.Image = imageFragment.image;
 
-                    if (columnIndex >= dataGridView.ColumnCount)
+                    if (x + sizeButtonDeck + ecartButton < nouvelleLargeur)
                     {
-                        columnIndex = 0;
-                        rowIndex += 2;
+                        x += sizeButtonDeck + ecartButton;
                     }
+                    else
+                    {
+                        x = 0;
+                        y += sizeButtonDeck + ecartButton;
+                    }
+
+                    listPictureBox.Add(pictureBoxPreview);
+                    formPreview.Controls.Add(pictureBoxPreview);
                 }
 
                 formPreview.Text = "Preview";
@@ -380,9 +341,9 @@ namespace App_StreamDeck
                 formPreview.MaximizeBox = false;
                 formPreview.MinimizeBox = false;
                 formPreview.BackColor = Color.Black;
-                formPreview.Width = nouvelleLargeur + (formPreview.Width - formPreview.ClientSize.Width) + ecartButton + 20;
+                formPreview.Width = nouvelleLargeur + (formPreview.Width - formPreview.ClientSize.Width) + ecartButton * 2;
                 // hauteur de la barre de titre + hauteur de la barre de défilement vertical
-                formPreview.Height = nouvelleHauteur + (formPreview.Height - formPreview.ClientSize.Height) + ecartButton + 20;
+                formPreview.Height = nouvelleHauteur + (formPreview.Height - formPreview.ClientSize.Height) + ecartButton * 2;
 
                 formPreview.Show();
                 formPreview.BringToFront();
